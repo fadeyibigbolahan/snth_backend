@@ -39,13 +39,13 @@ async function distributeGroupVolumeCommission(originUser, cvAmount) {
 
     await createNotification(
       upline._id,
-      `You earned ₦${commission.toFixed(
+      `You earned $${commission.toFixed(
         2
       )} from your Level ${level} downline (${originUser.username})`
     );
 
     console.log(
-      `Paid ₦${commission.toFixed(2)} to ${upline.username} for Level ${level}`
+      `Paid $${commission.toFixed(2)} to ${upline.username} for Level ${level}`
     );
   }
 }

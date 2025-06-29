@@ -231,11 +231,11 @@ router.post("/:username/add-earning", async (req, res) => {
     // Create notification
     await createNotification(
       user._id,
-      `₦${amount.toFixed(2)} has been added to your earnings. ${reason || ""}`
+      `$${amount.toFixed(2)} has been added to your earnings. ${reason || ""}`
     );
 
     res.status(200).json({
-      message: `₦${amount} added to ${username}'s earnings.`,
+      message: `$${amount} added to ${username}'s earnings.`,
       balanceAfter: user.earnings,
     });
   } catch (err) {

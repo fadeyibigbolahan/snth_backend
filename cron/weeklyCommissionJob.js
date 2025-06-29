@@ -53,7 +53,7 @@ async function runWeeklyCommissionJob() {
 
       await createNotification(
         user._id,
-        `You earned ₦${pvCommission.toFixed(2)} as your weekly PV commission!`
+        `You earned $${pvCommission.toFixed(2)} as your weekly PV commission!`
       );
 
       console.log(`Paid PV commission to ${user.username}`);

@@ -100,6 +100,12 @@ app.use("/api/transactions", transactionRouter);
 app.use("/api/notification", notificationRouter);
 app.use("/api/genealogy", genealogyRouter);
 
+app.get("/scheduled-task", (req, res) => {
+  console.log("Scheduled task triggered!");
+  // Run your task here, e.g., database cleanup, sending emails, etc.
+  res.send("Task completed");
+});
+
 app.get("/test-weekly", async (req, res) => {
   await assignUserRanks();
   await runWeeklyCommissionJob();

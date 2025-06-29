@@ -95,7 +95,7 @@ async function assignUserRanks() {
 
         await createNotification(
           upline._id,
-          `💸 You received ₦${matchBonus.toFixed(
+          `💸 You received $${matchBonus.toFixed(
             2
           )} as a 5% matching bonus from ${user.username}'s Champion Bonus!`
         );

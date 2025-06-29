@@ -31,7 +31,7 @@ async function distributeMonthlyPVCommissions() {
       // Send notification
       await createNotification(
         user._id,
-        `You earned ₦${commission.toFixed(2)} as monthly PV commission!`
+        `You earned $${commission.toFixed(2)} as monthly PV commission!`
       );
 
       console.log(`Commission sent to ${user.username}`);
