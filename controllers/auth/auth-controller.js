@@ -17,7 +17,7 @@ const registerUser = async (req, res) => {
     code,
     role,
   } = req.body;
-  console.log("Registration request body:", req.body);
+  // console.log("Registration request body:", req.body);
 
   try {
     const existingUser = await User.findOne({ username });
@@ -39,7 +39,7 @@ const registerUser = async (req, res) => {
       }
 
       newCode = await RegistrationCode.findOne({ code, used: false });
-      console.log("Found registration code:", newCode);
+      // console.log("Found registration code:", newCode);
       if (!newCode) {
         return res.status(400).json({
           message: "Invalid or already used registration code.",
@@ -85,7 +85,7 @@ const registerUser = async (req, res) => {
           `${username} registered using your referral. You've earned $5!`
         );
 
-        console.log(`Referral bonus added to ${referredBy}`);
+        // console.log(`Referral bonus added to ${referredBy}`);
       } else {
         console.warn(`Referrer not found: ${referredBy}`);
       }
