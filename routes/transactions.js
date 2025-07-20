@@ -9,18 +9,24 @@ const moment = require("moment"); // For date manipulation
 
 router.post("/withdrawal", authMiddleware, async (req, res) => {
   try {
-    const userId = req.user.id; // User ID from authenticated request
+    const userId = req.user.id;
     const { amount, accountDetails } = req.body;
     console.log("withdrawal", amount, accountDetails);
 
-    // Fetch the user's current balance (earnings)
     const user = await User.findById(userId);
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Check if the user has made a withdrawal in the last 24 hours
+    // ✅ Check if user has enough balance
+    if (user.earnings < amount) {
+      return res.status(400).json({
+        message: "Insufficient balance to process this withdrawal.",
+      });
+    }
+
+    // ✅ Check if the user has made a withdrawal in the last 24 hours
     const lastWithdrawal = await Withdrawal.findOne({ user: userId }).sort({
       createdAt: -1,
     });
@@ -38,18 +44,16 @@ router.post("/withdrawal", authMiddleware, async (req, res) => {
       }
     }
 
-    // Create a new withdrawal request
     const withdrawal = new Withdrawal({
       user: userId,
       amount,
-      paymentMethod: "Bank", // Assuming default payment method is Bank
+      paymentMethod: "Bank",
       accountDetails,
       status: "pending",
     });
 
     await withdrawal.save();
 
-    // Log withdrawal transaction
     await Transaction.create({
       user: userId,
       type: "withdrawal",
@@ -118,7 +122,7 @@ router.post(
       const withdrawalUser = await User.findOne({ username: user.username });
 
       // Check if the user has enough earnings
-      if (user.balance < amount) {
+      if (withdrawalUser.earnings < amount) {
         return res.status(400).json({
           message: "User does not have sufficient earnings to withdraw.",
         });
