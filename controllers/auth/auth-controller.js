@@ -50,14 +50,17 @@ const registerUser = async (req, res) => {
 
     const hashPassword = await bcrypt.hash(password, 12);
     const newUser = new User({
-      username,
-      email,
+      username: username.trim(),
+      email: email.trim(),
       password: hashPassword,
-      referredBy,
-      name,
-      phoneNumber,
+      name: name.trim(),
+      phoneNumber: phoneNumber.trim(),
       code,
     });
+
+    if (referredBy) {
+      newUser.referredBy = referredBy.trim();
+    }
 
     await newUser.save();
 
