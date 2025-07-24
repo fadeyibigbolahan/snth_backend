@@ -14,6 +14,7 @@ const authRouter = require("./routes/auth/auth-routes");
 const adminProductsRouter = require("./routes/admin/products-routes");
 const adminOrderRouter = require("./routes/admin/order-routes");
 const adminRegistrationCodeRouter = require("./routes/admin/registration-code-routes");
+const adminUserRouter = require("./routes/admin/user-routes");
 
 const shopProductsRouter = require("./routes/shop/products-routes");
 const shopCartRouter = require("./routes/shop/cart-routes");
@@ -89,6 +90,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/admin/products", adminProductsRouter);
 app.use("/api/admin/orders", adminOrderRouter);
 app.use("/api/admin/code", adminRegistrationCodeRouter);
+app.use("/api/admin/users", adminUserRouter);
 
 app.use("/api/shop/products", shopProductsRouter);
 app.use("/api/shop/cart", shopCartRouter);
