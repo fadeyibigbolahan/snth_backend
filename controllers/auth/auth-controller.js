@@ -24,7 +24,7 @@ const registerUser = async (req, res) => {
     if (existingUser) {
       return res.status(400).json({
         success: false,
-        message: "User already exists with the same username! Please try again",
+        message: "A user with similar credentials already exists.",
       });
     }
 
@@ -65,8 +65,8 @@ const registerUser = async (req, res) => {
     await newUser.save();
 
     if (referredBy) {
-      const referrer = await User.findOne({ username: referredBy });
-
+      const trimmedReferrer = referredBy.trim();
+      const referrer = await User.findOne({ username: trimmedReferrer });
       if (referrer) {
         referrer.earnings += 5;
         referrer.totalEarnings += 5;
